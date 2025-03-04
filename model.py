@@ -6,13 +6,13 @@ import os
 from sklearn.linear_model import LogisticRegression
 
 # confirm if the directory file location is correct
-for dirname, _, filenames in os.walk(r"C:\Users\Administrator\Downloads\train.csv"):
+for dirname, _, filenames in os.walk(r"D:\h"):
     for filename in filenames:
         print(os.path.join(dirname, filenames))
 
 # Load the dataset in a dataframe object and include only four features as mentioned
-df = pd.read_csv(r"C:\Users\Administrator\Downloads\train.csv")
-include = ['Age', 'Sex', 'Embarked', 'Survived'] # Only four features
+df = pd.read_csv(r"D:\healthcare_dataset.csv")
+include = ['Age', 'Gender', 'Insurance Provider', 'Hospital', 'Billing Amount','Medical Condition', 'Date of Admission', 'Discharge Date', 'Medication'] # Only features requireed
 df_ = df[include]
 
 # Data Preprocessing
@@ -26,7 +26,7 @@ for col, col_type in df_.dtypes.items():
 df_ohe = pd.get_dummies(df_, columns=categoricals, dummy_na=True)
 
 # Logistic Regression classifier
-dependent_variable = 'Survived'
+dependent_variable = 'Billing Amount'
 x = df_ohe[df_ohe.columns.difference([dependent_variable])]
 y = df_ohe[dependent_variable]
 lr = LogisticRegression()
